@@ -3,7 +3,7 @@ name: Build Godot Project
 env:
   GODOT_VERSION: 4.6.1
   EXPORT_NAME: infinite-flyer
-  PROJECT_PATH: infinite-flyer
+  PROJECT_PATH: .
 
 on:
   push: {}
