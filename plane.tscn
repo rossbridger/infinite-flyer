@@ -2,6 +2,12 @@
 
 [ext_resource type="Script" uid="uid://8vh7u64vxd7y" path="res://plane.gd" id="1_dpar4"]
 [ext_resource type="PackedScene" uid="uid://cdpa6gtwa772i" path="res://assets/cartoon_plane.glb" id="1_s46f0"]
+[ext_resource type="Texture2D" uid="uid://3fmgkg65aen" path="res://assets/smoke/smoke_01.png" id="3_cejrt"]
+[ext_resource type="Texture2D" uid="uid://dq5cf2vt3bg28" path="res://assets/smoke/smoke_02.png" id="4_afyqo"]
+[ext_resource type="Texture2D" uid="uid://q301fp0y80p1" path="res://assets/smoke/smoke_03.png" id="5_gwo5b"]
+[ext_resource type="Texture2D" uid="uid://jdbs2tmsvlho" path="res://assets/smoke/smoke_04.png" id="6_ye4pl"]
+[ext_resource type="Texture2D" uid="uid://vw3k0a3dd0mi" path="res://assets/smoke/smoke_05.png" id="7_a6rsd"]
+[ext_resource type="AudioStream" uid="uid://i6chryel3ba6" path="res://assets/audio/impact.wav" id="8_afyqo"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_dpar4"]
 height = 4.71994
@@ -10,11 +16,38 @@ radius = 0.8803711
 [sub_resource type="BoxShape3D" id="BoxShape3D_nqs3l"]
 size = Vector3(6.8066864, 1.4730225, 0.4371338)
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_b6rx2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_cejrt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_afyqo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_gwo5b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_ye4pl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_a6rsd")
+}],
+"loop": false,
+"name": &"default",
+"speed": 10.0
+}]
+
 [node name="Plane" type="CharacterBody3D" unique_id=1226242188]
+motion_mode = 1
 script = ExtResource("1_dpar4")
 
 [node name="cartoon_plane" parent="." unique_id=389860995 instance=ExtResource("1_s46f0")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="AnimationPlayer" parent="cartoon_plane" index="6" unique_id=1954461445]
+autoplay = &"prop_spin"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=448712577]
 transform = Transform3D(1.9106853e-15, -4.3711385e-08, 1, -0.99999994, -4.3711385e-08, 0, 4.3711385e-08, -0.99999994, -4.371139e-08, -6.974639e-09, -6.974639e-09, -0.15956114)
@@ -23,5 +56,16 @@ shape = SubResource("CylinderShape3D_dpar4")
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=511737253]
 transform = Transform3D(1, 0, 0, 0, -0.044543467, 0.99900746, 0, -0.99900746, -0.044543467, 0, -0.16827625, -0.5873211)
 shape = SubResource("BoxShape3D_nqs3l")
+
+[node name="Explosion" type="AnimatedSprite3D" parent="." unique_id=1400444629]
+visible = false
+pixel_size = 0.5
+billboard = 1
+sprite_frames = SubResource("SpriteFrames_b6rx2")
+frame = 4
+frame_progress = 1.0
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=911618671]
+stream = ExtResource("8_afyqo")
 
 [editable path="cartoon_plane"]
